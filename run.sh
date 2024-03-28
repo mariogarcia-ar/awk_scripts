@@ -191,6 +191,10 @@ if [ $run_step $comparison_operator 2 ]; then
     my_printf "Fizz Buzz"
     script="$ROOT_DIR/chap02/cf.awk"
     awk -v value=50 -f "$script" 
+
+
+    my_printf "Replace text"
+    awk '  { sub(/Kathy/,"Katherine") }' "$DATA_DIR/emp.data" 
 fi  
 
 
