@@ -44,6 +44,8 @@ fi
 
 if [ $run_step $comparison_operator 1 ]; then
     printf "${RED} Step 01 ${NC}\n"
+    # cat "$DATA_DIR/emp.data"
+    awk '$3 > 0 { print $1, $2, $3, $2 * $3 }' "$DATA_DIR/emp.data"
 fi  
 
 
