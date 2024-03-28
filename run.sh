@@ -194,7 +194,12 @@ if [ $run_step $comparison_operator 2 ]; then
 
 
     my_printf "Replace text"
-    awk '  { sub(/Kathy/,"Katherine") }' "$DATA_DIR/emp.data" 
+    awk '  { sub(/Kathy/,"Katherine"); print $0 }' "$DATA_DIR/emp.data" 
+
+
+    my_printf "Custom gsub"
+    script="$ROOT_DIR/chap02/rest.awk"
+    awk -f "$script" "$DATA_DIR/emp.data" 
 fi  
 
 
