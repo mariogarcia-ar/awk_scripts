@@ -158,7 +158,27 @@ if [ $run_step $comparison_operator 1 ]; then
     
     '  
 
-    
+    my_printf "Print nro lines"
+    awk ' END {print NR }' "$DATA_DIR/emp.data" 
+
+    my_printf "Print first 5 lines"
+    awk ' NR <= 5 { print $0 } END { print "\nFirst 5 lines of" NR }' "$DATA_DIR/emp.data" 
+
+    my_printf "Print even lines"
+    awk ' NR % 2 == 0 { print NR, $0 }' "$DATA_DIR/emp.data" 
+
+    my_printf "Print last field"
+    awk ' { print $NF } ' "$DATA_DIR/emp.data" 
+
+    my_printf "Count occurrences of Beth"
+    awk ' /Beth/ { count++ } END { print count }' "$DATA_DIR/emp.data" 
+
+    my_printf "Print max hour value and position"
+    awk ' $3 > max { max = $3; maxline = $0 } END { print max, maxline }' "$DATA_DIR/emp.data" 
+
+    my_printf "Flip the first and last fields"
+    awk '  { temp_1 = $1; $1 = $NF; $NF = temp_1; print $0}' "$DATA_DIR/emp.data" 
+
 fi  
 
 
