@@ -13,6 +13,7 @@ NC='\033[0m' # No Color
 # ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ROOT_DIR="$(pwd)"
 DATA_DIR=$ROOT_DIR/data
+TEMP_DIR=$ROOT_DIR/temp
 
 # -----------------------------------------------------------------------------
 # menu
@@ -45,6 +46,32 @@ my_printf() {
     local test=$1
     printf "\n> $test \n\n"
 }
+
+# Function to check if a file exists
+file_exists() {
+    local file="$1"
+    [ -f "$file" ]
+}
+
+
+my_wget(){
+    # URL of the file to download
+    file_url="$1"
+
+    # Local path where you want to save the file
+    local_file="$2"    
+
+    # Check if the file already exists
+    if file_exists "$local_file"; then
+        echo "File already exists. Skipping download."
+    else
+        # Download the file if it doesn't exist
+        echo "Downloading file..."
+        wget -q "$file_url" -O "$local_file"
+        echo "Download completed."
+    fi
+}
+
 
 # -----------------------------------------------------------------------------
 # 01
@@ -223,5 +250,34 @@ if [ $run_step $comparison_operator 3 ]; then
 
     # awk -F, 'BEGIN { print "\nUnique Sex" } !x[$4]++ {print $4}' "$DATA_DIR/titanic.csv" 
     # awk -F, 'BEGIN { print "\nUnique Class" } !x[$2]++ {print $2}' "$DATA_DIR/titanic.csv" 
+
+    # https://github.com/plotly/datasets/tree/master
+    my_wget "https://raw.githubusercontent.com/plotly/datasets/master/beers.csv" "$TEMP_DIR/beers.csv"
+
+    my_printf "EDA Beer Ratings"
+    # "","count.x","abv","ibu","id","beer","style","brewery_id","ounces","style2","count.y","brewery","city","state","label"
+
+    # awk -F, ' NR > 1 { print $3 } ' "$TEMP_DIR/beers.csv"
+    
+    my_printf "Max ABV"
+    awk -F, ' NR > 1  && $3 ~ /[0-9.]/ && $3 > max { max = $3; maxpos = NR } END { print "Max ABV:", max, maxpos }' "$TEMP_DIR/beers.csv"
+    
+    my_printf "ABV NaN"
+    awk -F, ' NR > 1  && $3 !~ /[0-9.]/ { count++ } END { print "ABV NaN:", count }' "$TEMP_DIR/beers.csv"
+    
+    my_printf "EDA beer, Style "
+    awk -F, ' 
+        NR > 1  {
+            beers[$6]++; styles[$7]++;  
+        } 
+         
+        END { 
+            print "Types of beers:", length(beers)
+            print "Types of styles:", length(styles)
+            # for(beer in beers)
+            #     print beer, beers[beer]
+
+        }' "$TEMP_DIR/beers.csv" 
+    
 fi  
 
