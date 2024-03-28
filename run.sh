@@ -2,6 +2,11 @@
 
 # bash run.sh only 1
 
+# ------------------------------------------------------------------
+# colors
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+                        
 # -----------------------------------------------------------------------------
 # constansts
 
@@ -38,7 +43,7 @@ fi
 # 01
 
 if [ $run_step $comparison_operator 1 ]; then
-    echo "step 01"
+    printf "${RED} Step 01 ${NC}\n"
 fi  
 
 
@@ -46,7 +51,7 @@ fi
 # 02
 
 if [ $run_step $comparison_operator 2 ]; then
-    echo "step 02"
+    printf "${RED} Step 02 ${NC}\n"
 fi  
 
 
@@ -54,6 +59,6 @@ fi
 # 03
 
 if [ $run_step $comparison_operator 3 ]; then
-    echo "step 03"
+    printf "${RED} Step 03 ${NC}\n"
 fi  
 
