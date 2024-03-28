@@ -208,5 +208,20 @@ fi
 
 if [ $run_step $comparison_operator 3 ]; then
     printf "${RED} Step 03 ${NC}\n"
+    # Survived,Pclass,Name,Sex,Age,Siblings/Spouses Aboard,Parents/Children Aboard,Fare
+
+    my_printf "EDA Titanic"
+    script="$ROOT_DIR/chap03/titanic_report_by_sex.awk"
+    awk -F, -f "$script" "$DATA_DIR/titanic.csv" 
+
+    script="$ROOT_DIR/chap03/titanic_report_by_class.awk"
+    awk -F, -f "$script" "$DATA_DIR/titanic.csv" 
+
+    script="$ROOT_DIR/chap03/titanic_report_by_survival.awk"
+    awk -F, -f "$script" "$DATA_DIR/titanic.csv" 
+
+
+    # awk -F, 'BEGIN { print "\nUnique Sex" } !x[$4]++ {print $4}' "$DATA_DIR/titanic.csv" 
+    # awk -F, 'BEGIN { print "\nUnique Class" } !x[$2]++ {print $2}' "$DATA_DIR/titanic.csv" 
 fi  
 
