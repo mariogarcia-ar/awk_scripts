@@ -40,12 +40,125 @@ fi
 
 
 # -----------------------------------------------------------------------------
+# Miscelaneous
+my_printf() {
+    local test=$1
+    printf "\n> $test \n\n"
+}
+
+# -----------------------------------------------------------------------------
 # 01
 
 if [ $run_step $comparison_operator 1 ]; then
     printf "${RED} Step 01 ${NC}\n"
-    # cat "$DATA_DIR/emp.data"
+    
+    my_printf "Filter grather than 0"
     awk '$3 > 0 { print $1, $2, $3, $2 * $3 }' "$DATA_DIR/emp.data"
+    
+    my_printf "Filter equals to 0"
+    awk '$3 == 0 { print $1, $2, $3}' "$DATA_DIR/emp.data"
+
+    my_printf "NF number of fields"
+    awk 'END { print "Number of fields " NF}' "$DATA_DIR/emp.data"
+    
+    my_printf "NR number of record"
+    awk '{ print "#" NR " -", $0}' "$DATA_DIR/emp.data"
+
+    my_printf "printf build-in"
+    awk '{ printf("Total pay for %s is $%.2f\n", $1, $2 * $3) }' "$DATA_DIR/emp.data"
+
+    my_printf "sorting output"
+    awk '{ printf("%6.2f %s\n", $2 * $3, $0) }' "$DATA_DIR/emp.data" | sort
+
+    my_printf "filter by calculation"
+    awk ' $2 * $3 > 20 { printf("%6.2f %s\n", $2 * $3, $1) }' "$DATA_DIR/emp.data" 
+
+    my_printf "filter by content"
+    awk ' $1 == "Susie" { printf("%6.2f %s\n", $2 * $3, $1) }' "$DATA_DIR/emp.data" 
+
+    my_printf "filter by regexp"
+    awk ' /Susie/ { printf("%6.2f %s\n", $2 * $3, $1) }' "$DATA_DIR/emp.data" 
+
+    my_printf "filter by multiple patterns"
+    awk ' $2 > 20 || $3 > 20 { printf("%6.2f %s\n", $2 * $3, $1) }' "$DATA_DIR/emp.data" 
+
+    my_printf "multiples individuals conditions (if elseif ...) "
+    awk ' 
+        NF != 3 { print "Nro of fields is not 3 : " $0}
+        $2 < 15 { print "Rate lower than 15 : " $0}
+        $2 > 15 { print "Rate greather than 25 : " $0}
+        $3 <= 0  { print "Zero or Negative hours worked : " $0}
+        $3 >= 12  { print "Too many hours worked : " $0}
+    ' "$DATA_DIR/emp.data" 
+
+
+    my_printf "Begin and End"
+    awk ' 
+    BEGIN   { printf "Name\tRate\tHours\t\n"}
+            {print $1"\t"$2"\t"$3 }
+    END     {printf("\nTotal records: %d \n", NR)}
+    
+    ' "$DATA_DIR/emp.data" 
+
+
+    my_printf "Counting: employee who have worked more than 15 hours"
+    awk ' 
+    BEGIN   { printf "Name\tRate\tHours\t\n"}
+            $3 > 15 {print $1"\t"$2"\t"$3, total++ }
+    END     {printf("\nTotal records: %d \n", total)}
+    
+    ' "$DATA_DIR/emp.data" 
+
+    
+    my_printf "Sums and Avgs: Reports for employee who have worked more than 15 hours"
+    awk ' 
+    BEGIN   { printf "Name\tRate\tHours\t\n"}
+            $3 > 15 {print $1"\t"$2"\t"$3; count++; total_hs += $3  }
+    END     {
+                printf("\nREPORT")
+                printf("\n Total hs: %d ", total_hs)
+                printf("\n Average hs: %d ", total_hs / count)
+                printf("\n Total employee: %d \n", count)
+            }
+    ' "$DATA_DIR/emp.data" 
+
+    my_printf "Flow control: Reports for employee who have worked more than 15 hours"
+    awk ' 
+    BEGIN   { printf "Name\tRate\tHours\t\n"}
+            $3 > 100 {print $1"\t"$2"\t"$3; count++; total_hs += $3  }
+    END     {
+                if (count > 0){
+                    printf("\nREPORT")
+                    printf("\n Total hs: %d ", total_hs)
+                    printf("\n Average hs: %d ", total_hs / count)
+                    printf("\n Total employee: %d \n", count)
+                } else {
+                    printf("\nREPORT: No data")
+                }
+            }
+    ' "$DATA_DIR/emp.data" 
+
+    
+
+    my_printf "Fizz Buzz"
+    awk ' 
+    BEGIN   {
+                for(i=0; i<=100; i++){
+                    if( i%15 == 0) { print i, "FizzBuzz"; count_FB++ }
+                    else if( i%5 == 0) { print i, "Buzz"; count_B++ }
+                    else if( i%3 == 0) { print i, "Fizz"; count_F++ }
+                    else  { print i; count_O++ }
+                }
+
+                printf("\nTotal of FizzBuzz:  %3.0f  ", count_FB)
+                printf("\nTotal of Fizz:  %3.0f  ", count_F)
+                printf("\nTotal of Buzz:  %3.0f  ", count_B)
+                printf("\nTotal of Others:  %3.0f  ", count_O)
+            }
+    
+    '  
+
+    
 fi  
 
 
