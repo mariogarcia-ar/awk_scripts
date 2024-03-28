@@ -2,6 +2,7 @@
 
 # Summary
 - https://quickref.me/awk.html
+- https://awk.js.org/  for regular expressions
 
 ## Program
 ```awk

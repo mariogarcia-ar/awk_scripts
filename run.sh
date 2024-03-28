@@ -281,3 +281,16 @@ if [ $run_step $comparison_operator 3 ]; then
     
 fi  
 
+
+# -----------------------------------------------------------------------------
+# 04
+
+if [ $run_step $comparison_operator 4 ]; then
+    printf "${RED} Step 04 ${NC}\n"
+
+    my_wget "https://raw.githubusercontent.com/plotly/datasets/master/beers.csv" "$TEMP_DIR/beers.csv"
+
+    my_printf "Separate beers into multiple files by style"
+    script="$ROOT_DIR/chap04/unbundle.awk"
+    awk -F, -f "$script" "$TEMP_DIR/beers.csv"
+fi    
