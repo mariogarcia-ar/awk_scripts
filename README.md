@@ -3,6 +3,7 @@
 # Summary
 - https://quickref.me/awk.html
 - https://awk.js.org/  for regular expressions
+- https://www.baeldung.com/linux/awk-call-external-program
 
 ## Program
 ```awk
@@ -98,6 +99,11 @@ $1 !~ /regex/	        # Field not matches
 '
 
 ```
+
+# Call External Programs
+- awk + sendmail: Read a CSV file containing email addresses and messages, and process and send each message
+- awk + cp: Read input of a file list, and copy the files to a required destination with a defined name pattern
+- awk + md5sum: Read input containing a list of filenames, output the filename and the MD5 hash of the file
 
 
 # Books
