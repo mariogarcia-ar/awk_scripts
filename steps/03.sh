@@ -2,39 +2,44 @@
 # -----------------------------------------------------------------------------
 # 03
 
+# Check if the current step matches the specified condition
 if [ $run_step $comparison_operator 03 ]; then
+    # Print step indicator in red
     printf "${RED} Step 03 ${NC}\n"
 
- # Survived,Pclass,Name,Sex,Age,Siblings/Spouses Aboard,Parents/Children Aboard,Fare
-
+    # Perform Exploratory Data Analysis (EDA) on the Titanic dataset
     my_printf "EDA Titanic"
+    # Path to the script for reporting Titanic data by sex
     script="$ROOT_DIR/chap03/titanic_report_by_sex.awk"
+    # Execute awk script with ',' as field separator
     awk -F, -f "$script" "$DATA_DIR/titanic.csv" 
 
+    # Path to the script for reporting Titanic data by class
     script="$ROOT_DIR/chap03/titanic_report_by_class.awk"
+    # Execute awk script with ',' as field separator
     awk -F, -f "$script" "$DATA_DIR/titanic.csv" 
 
+    # Path to the script for reporting Titanic data by survival
     script="$ROOT_DIR/chap03/titanic_report_by_survival.awk"
+    # Execute awk script with ',' as field separator
     awk -F, -f "$script" "$DATA_DIR/titanic.csv" 
 
 
-    # awk -F, 'BEGIN { print "\nUnique Sex" } !x[$4]++ {print $4}' "$DATA_DIR/titanic.csv" 
-    # awk -F, 'BEGIN { print "\nUnique Class" } !x[$2]++ {print $2}' "$DATA_DIR/titanic.csv" 
-
-    # https://github.com/plotly/datasets/tree/master
+    # Download the beers dataset
     my_wget "https://raw.githubusercontent.com/plotly/datasets/master/beers.csv" "$TMP_DIR/beers.csv"
 
+    # Perform Exploratory Data Analysis (EDA) on the Beer Ratings dataset
     my_printf "EDA Beer Ratings"
-    # "","count.x","abv","ibu","id","beer","style","brewery_id","ounces","style2","count.y","brewery","city","state","label"
-
-    # awk -F, ' NR > 1 { print $3 } ' "$TMP_DIR/beers.csv"
     
+    # Find the maximum ABV (Alcohol By Volume)
     my_printf "Max ABV"
     awk -F, ' NR > 1  && $3 ~ /[0-9.]/ && $3 > max { max = $3; maxpos = NR } END { print "Max ABV:", max, maxpos }' "$TMP_DIR/beers.csv"
     
+    # Count the occurrences of NaN values in ABV (Alcohol By Volume)
     my_printf "ABV NaN"
     awk -F, ' NR > 1  && $3 !~ /[0-9.]/ { count++ } END { print "ABV NaN:", count }' "$TMP_DIR/beers.csv"
     
+    # Perform Exploratory Data Analysis (EDA) on the beer styles
     my_printf "EDA beer, Style "
     awk -F, ' 
         NR > 1  {
@@ -44,8 +49,5 @@ if [ $run_step $comparison_operator 03 ]; then
         END { 
             print "Types of beers:", length(beers)
             print "Types of styles:", length(styles)
-            # for(beer in beers)
-            #     print beer, beers[beer]
-
         }' "$TMP_DIR/beers.csv"     
 fi
