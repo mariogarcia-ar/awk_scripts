@@ -5,7 +5,8 @@
 if [ $run_step $comparison_operator 10 ]; then
     printf "${RED} Step 10 ${NC}\n"
 
-
+    # ========================================================================
+    # en_US
     # -------------------------------------------------------------------------
     output=$TMP_DIR"/out_fake_data_generator.txt"
 
@@ -20,6 +21,27 @@ if [ $run_step $comparison_operator 10 ]; then
     my_printf "Extrat extract_date_time from utf-8"    
     script=$SCRIPTS_DIR"/awk/research/extract_date_time.awk"
     awk -f "$script" "$output" 
+
+
+
+    # ========================================================================
+    # es_ES
+    # -------------------------------------------------------------------------
+    output=$TMP_DIR"/out_fake_data_generator_es_ES.txt"
+
+    my_printf "Generate Fake data"    
+    script=$SCRIPTS_DIR"/python/fake_data_generator.py"
+    python "$script" 1000   -o "$output" -n 20 -l "es_ES"
+
+    my_printf "Extrat money from utf-8"    
+    script=$SCRIPTS_DIR"/awk/research/extract_money.awk"
+    awk -f "$script" "$output"     
+
+    my_printf "Extrat extract_date_time from utf-8"    
+    script=$SCRIPTS_DIR"/awk/research/extract_date_time.awk"
+    awk -f "$script" "$output" 
+
+
 
     exit 1
    # -------------------------------------------------------------------------

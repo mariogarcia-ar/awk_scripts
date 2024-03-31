@@ -13,7 +13,7 @@ def date_format(date):
         "%Y.%m.%d",   # YYYY.MM.DD
         "%b %d, %Y",  # Month Day, Year (e.g., Jan 1, 2022)
         "%d %b %Y",   # Day Month Year (e.g., 1 Jan 2022)
-        "%Y/%m/%d",    # YYYY/MM/DD
+        "%Y/%m/%d",   # YYYY/MM/DD
         
         # Define Spanish date formats
         "%d/%m/%Y",   # DD/MM/YYYY
@@ -25,8 +25,8 @@ def date_format(date):
     formatted_date = datetime.datetime.strptime(date, '%Y-%m-%d').strftime(date_format)
     return formatted_date
 
-def generate_fake_data(num_examples, output_file, shuffle_data, num_per_line):
-    fake = Faker()
+def generate_fake_data(num_examples, output_file, shuffle_data, num_per_line, locale="en_US"):
+    fake = Faker(locale)
 
     # Generate examples for each data type
     data = {
@@ -41,7 +41,7 @@ def generate_fake_data(num_examples, output_file, shuffle_data, num_per_line):
         "URI": [fake.uri() for _ in range(num_examples)],
         "Credit Card": [fake.credit_card_number() for _ in range(num_examples)],
         "Phone Number": [fake.phone_number() for _ in range(num_examples)],
-        "Zip Code": [fake.zipcode() for _ in range(num_examples)],
+        "Zip Code": [ fake.zipcode() if locale == "en_EN" else fake.postcode() for _ in range(num_examples)],
         "GUID": [fake.uuid4() for _ in range(num_examples)],
         "SKU": [fake.uuid4() for _ in range(num_examples)],
         "HTML": ['<p>' + fake.text() + '</p>' for _ in range(num_examples)],  # Generate paragraphs
@@ -86,13 +86,14 @@ def main():
     parser.add_argument("-o", "--output", default="fake_data.txt", help="Output file path (default: fake_data.txt)")
     parser.add_argument("-s", "--shuffle", action="store_true", help="Shuffle data before writing to file")
     parser.add_argument("-n", "--num-per-line", type=int, default=5, help="Number of data types per line (default: 5)")
+    parser.add_argument("-l", "--locale", default="en_US", help="Locale for fake data generation (default: en_US)")
     args = parser.parse_args()
 
     if args.num_examples % args.num_per_line != 0:
         print("Error: The number of data types per line must be a divisor of the total number of examples.")
         return
 
-    generate_fake_data(args.num_examples, args.output, args.shuffle, args.num_per_line)
+    generate_fake_data(args.num_examples, args.output, args.shuffle, args.num_per_line, args.locale)
 
 if __name__ == "__main__":
     main()
