@@ -29,13 +29,24 @@ if [ $run_step $comparison_operator 09 ]; then
 
     # =========================================================================
     echo "$page_001" 
-    my_printf "Extrat money from utf-8"    
+    my_printf "Extrat extract_date_time from utf-8"    
     script=$SCRIPTS_DIR"/awk/research/extract_date_time.awk"
     awk -f "$script" "$page_001" 
 
     # -------------------------------------------------------------------------
-    my_printf "Extrat money from WINDOWS-1252"    
+    my_printf "Extrat extract_date_time from WINDOWS-1252"    
     script=$SCRIPTS_DIR"/awk/research/extract_date_time.awk"
+    iconv -f UTF-8 -t WINDOWS-1252 "$page_001"  | awk -f "$script" 
+ 
+    # =========================================================================
+    echo "$page_001" 
+    my_printf "Extrat extract_email from utf-8"    
+    script=$SCRIPTS_DIR"/awk/research/extract_email.awk"
+    awk -f "$script" "$page_001" 
+
+    # -------------------------------------------------------------------------
+    my_printf "Extrat extract_email from WINDOWS-1252"    
+    script=$SCRIPTS_DIR"/awk/research/extract_email.awk"
     iconv -f UTF-8 -t WINDOWS-1252 "$page_001"  | awk -f "$script" 
  
 
