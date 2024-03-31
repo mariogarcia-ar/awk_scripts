@@ -2,13 +2,35 @@ import argparse
 from faker import Faker
 import json
 import random
+import datetime
+
+def date_format(date):
+    # Define a list of date formats
+    date_formats = [
+        "%Y-%m-%d",   # YYYY-MM-DD
+        "%m/%d/%Y",   # MM/DD/YYYY
+        "%d-%m-%Y",   # DD-MM-YYYY
+        "%Y.%m.%d",   # YYYY.MM.DD
+        "%b %d, %Y",  # Month Day, Year (e.g., Jan 1, 2022)
+        "%d %b %Y",   # Day Month Year (e.g., 1 Jan 2022)
+        "%Y/%m/%d",    # YYYY/MM/DD
+        
+        # Define Spanish date formats
+        "%d/%m/%Y",   # DD/MM/YYYY
+        "%d-%m-%Y",   # DD-MM-YYYY
+        "%d de %B de %Y",  # Day de Month de Year (e.g., 1 de enero de 2022)
+        "%d-%m-%y"    # DD-MM-YY        
+    ]
+    date_format = random.choice(date_formats)
+    formatted_date = datetime.datetime.strptime(date, '%Y-%m-%d').strftime(date_format)
+    return formatted_date
 
 def generate_fake_data(num_examples, output_file, shuffle_data, num_per_line):
     fake = Faker()
 
     # Generate examples for each data type
     data = {
-        "Date": [fake.date() for _ in range(num_examples)],
+        "Date": [date_format(fake.date()) for _ in range(num_examples)],
         "Time": [fake.time() for _ in range(num_examples)],
         "Timestamp": [fake.unix_time() for _ in range(num_examples)],
         "Number": [random.randint(1, 1000) for _ in range(num_examples)],
