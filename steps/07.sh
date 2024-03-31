@@ -13,14 +13,14 @@ if [ $run_step $comparison_operator 07 ]; then
     # -------------------------------------------------------------------------
     out_file=$TMP_DIR"/diff.txt"
 
-    script=$SCRIPTS_DIR"/diff.awk"
+    script=$SCRIPTS_DIR"/awk/diff.awk"
     awk -f "$script" "$page_001" "$page_002" > "$out_file"
     my_printf "Files compared. See $out_file"
     
     # -------------------------------------------------------------------------
     out_file=$TMP_DIR"/templatediff.txt"
 
-    script=$SCRIPTS_DIR"/templatediff.awk"
+    script=$SCRIPTS_DIR"/awk/templatediff.awk"
     awk -f "$script" "$page_001" "$page_002" > "$out_file"
     my_printf "Files compared. See $out_file"
 

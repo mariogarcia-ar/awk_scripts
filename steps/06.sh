@@ -12,7 +12,7 @@ if [ $run_step $comparison_operator 06 ]; then
     
     out_file=$TMP_DIR"/common_lines.txt"
 
-    script=$SCRIPTS_DIR"/research/compare_files.awk"
+    script=$SCRIPTS_DIR"/awk/research/compare_files.awk"
     awk -f "$script" "$page_001" "$page_002" > "$out_file"
     my_printf "Files compared. See $out_file"
 
@@ -20,7 +20,7 @@ if [ $run_step $comparison_operator 06 ]; then
     # Detect lines that have a high probability of being static or template
     out_file=$TMP_DIR"/common_lines_blank_lines.txt"
 
-    script=$SCRIPTS_DIR"/research/compare_files_blank_line.awk"
+    script=$SCRIPTS_DIR"/awk/research/compare_files_blank_line.awk"
     awk -f "$script" "$page_001" "$page_002" > "$out_file"
     my_printf "Files compared. See $out_file"
 
@@ -29,7 +29,7 @@ if [ $run_step $comparison_operator 06 ]; then
     # Detect lines that have a high probability of being static or template
     out_file=$TMP_DIR"/keep_differences.txt"
 
-    script=$SCRIPTS_DIR"/research/keep_differences.awk"
+    script=$SCRIPTS_DIR"/awk/research/keep_differences.awk"
     awk -f "$script" "$page_001" "$page_002" > "$out_file"
     my_printf "Files compared. See $out_file"
 
@@ -38,7 +38,7 @@ if [ $run_step $comparison_operator 06 ]; then
     # Detect lines that have a high probability of being static or template
     out_file=$TMP_DIR"/keep_differences_second_only.txt"
 
-    script=$SCRIPTS_DIR"/research/keep_differences_second_only.awk"
+    script=$SCRIPTS_DIR"/awk/research/keep_differences_second_only.awk"
     awk -f "$script" "$page_001" "$page_002" > "$out_file"
     my_printf "Files compared. See $out_file"
  
@@ -46,7 +46,7 @@ if [ $run_step $comparison_operator 06 ]; then
     # Detect lines that have a high probability of being static or template
     out_file=$TMP_DIR"/keep_differences_blank_line.txt"
 
-    script=$SCRIPTS_DIR"/research/keep_differences_blank_line.awk"
+    script=$SCRIPTS_DIR"/awk/research/keep_differences_blank_line.awk"
     awk -f "$script" "$page_001" "$page_002" > "$out_file"
     my_printf "Files compared. See $out_file"
 
