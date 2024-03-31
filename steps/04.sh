@@ -13,7 +13,7 @@ if [ $run_step $comparison_operator 04 ]; then
     # Separate beers into multiple files by style
     my_printf "Separate beers into multiple files by style"
     # Path to the script for unbundling beers by style
-    script="$ROOT_DIR/chap04/unbundle.awk"
+    script="$SCRIPTS_DIR/awk/book/chap04/unbundle.awk"
     # Execute awk script with ',' as field separator
     awk -F, -f "$script" "$TMP_DIR/beers.csv"    
 fi

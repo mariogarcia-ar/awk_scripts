@@ -10,17 +10,17 @@ if [ $run_step $comparison_operator 03 ]; then
     # Perform Exploratory Data Analysis (EDA) on the Titanic dataset
     my_printf "EDA Titanic"
     # Path to the script for reporting Titanic data by sex
-    script="$ROOT_DIR/chap03/titanic_report_by_sex.awk"
+    script="$SCRIPTS_DIR/awk/book/chap03/titanic_report_by_sex.awk"
     # Execute awk script with ',' as field separator
     awk -F, -f "$script" "$DATA_DIR/titanic.csv" 
 
     # Path to the script for reporting Titanic data by class
-    script="$ROOT_DIR/chap03/titanic_report_by_class.awk"
+    script="$SCRIPTS_DIR/awk/book/chap03/titanic_report_by_class.awk"
     # Execute awk script with ',' as field separator
     awk -F, -f "$script" "$DATA_DIR/titanic.csv" 
 
     # Path to the script for reporting Titanic data by survival
-    script="$ROOT_DIR/chap03/titanic_report_by_survival.awk"
+    script="$SCRIPTS_DIR/awk/book/chap03/titanic_report_by_survival.awk"
     # Execute awk script with ',' as field separator
     awk -F, -f "$script" "$DATA_DIR/titanic.csv" 
 
