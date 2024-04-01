@@ -306,3 +306,55 @@ And here are some examples:
 - File URI: `file:///path/to/file.txt`
 
 These examples demonstrate how different schemes are used in URIs to identify various types of resources on the internet and other networks.
+
+# Reg Exp
+- Basic Regular Expressions or BRE 
+- Extended Regular Expressions or ERE
+
+https://www.regular-expressions.info/posix.html
+
+The other BRE metacharacters require a backslash to give them their special meaning. The reason is that the oldest versions of UNIX grep did not support these. The developers of grep wanted to keep it compatible with existing regular expressions, which may use these characters as literal characters. The BRE a{1,2} matches a{1,2} literally, while a\{1,2\} matches a or aa. Some implementations support \? and \+ as an alternative syntax to \{0,1\} and \{1,\}, but \? and \+ are not part of the POSIX standard. Tokens can be grouped with \( and \). Backreferences are the usual \1 through \9. Only up to 9 groups are permitted. E.g. \(ab\)\1 matches abab, while (ab)\1 is invalid since there’s no capturing group corresponding to the backreference \1. Use \\1 to match \1 literally.
+
+
+
+- date_regex = "(0[1-9]|[12][0-9]|3[01])[-./](0[1-9]|1[0-2])[-./](19|20)[0-9][0-9]"
+- time_regex = "([01]?[0-9]|2[0-3]):([0-5][0-9])(:([0-5][0-9]))?( AM| PM)?"
+- timestamp_regex = "[0-9]+"
+- number_regex = "[0-9]+"
+- float_regex = "[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?"
+- boolean_regex = "(true|false)"
+- ip_address_regex = "(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])"
+- uri_regex = "^((http|https)://)?[a-z0-9]+([-.][a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(/.*)?$"
+- credit_card_regex = "\\b(?:\\d[ -]*?){13,16}\\b"
+- phone_number_regex = "^(\\+\\d{1,3}[- ]?)?\\(?\\d{3}\\)?[- ]?\\d{3}[- ]?\\d{4}$"
+- zip_code_regex = "\\b\\d{5}\\b"
+- guid_regex = "^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$"
+- sku_regex = "[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}"
+- html_regex = "<([a-zA-Z][a-zA-Z0-9]*)\\b[^>]*>(.*?)</\\1>"
+- json_regex = "\\{.*?\\}"
+- serialized_data_regex = "a:\\d*:{.*;}"
+- username_regex = "^[a-zA-Z0-9_-]{3,16}$"
+- password_regex = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+- money_regex = "(\\$|€)[0-9]+([.,][0-9]+)?"
+
+# Credit Card
+Common credit card vendor regular expressions:
+
+https://stackoverflow.com/questions/9315647/regex-credit-card-number-tests
+
+- Amex Card: ^3[47][0-9]{13}$
+- BCGlobal: ^(6541|6556)[0-9]{12}$
+- Carte Blanche Card: ^389[0-9]{11}$
+- Diners Club Card: ^3(?:0[0-5]|[68][0-9])[0-9]{11}$
+- Discover Card: ^65[4-9][0-9]{13}|64[4-9][0-9]{13}|6011[0-9]{12}|(622(?:12[6-9]|1[3-9][0-9]|[2-8][0-9][0-9]|9[01][0-9]|92[0-5])[0-9]{10})$
+- Insta Payment Card: ^63[7-9][0-9]{13}$
+- JCB Card: ^(?:2131|1800|35\d{3})\d{11}$
+- KoreanLocalCard: ^9[0-9]{15}$
+- Laser Card: ^(6304|6706|6709|6771)[0-9]{12,15}$
+- Maestro Card: ^(5018|5020|5038|6304|6759|6761|6763)[0-9]{8,15}$
+- Mastercard: ^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$
+- Solo Card: ^(6334|6767)[0-9]{12}|(6334|6767)[0-9]{14}|(6334|6767)[0-9]{15}$
+- Switch Card: ^(4903|4905|4911|4936|6333|6759)[0-9]{12}|(4903|4905|4911|4936|6333|6759)[0-9]{14}|(4903|4905|4911|4936|6333|6759)[0-9]{15}|564182[0-9]{10}|564182[0-9]{12}|564182[0-9]{13}|633110[0-9]{10}|633110[0-9]{12}|633110[0-9]{13}$
+- Union Pay Card: ^(62[0-9]{14,17})$
+- Visa Card: ^4[0-9]{12}(?:[0-9]{3})?$
+- Visa Master Card: ^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14})$
