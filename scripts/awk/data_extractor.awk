@@ -1,11 +1,11 @@
-#!/usr/bin/awk -f
+#!/usr/bin/gwak
 
 BEGIN {
     # Precompile regular expressions
     date_regex = "(0[1-9]|[12][0-9]|3[01])[-./](0[1-9]|1[0-2])[-./](19|20)[0-9][0-9]"
     time_regex = "([01]?[0-9]|2[0-3]):([0-5][0-9])(:([0-5][0-9]))?( AM| PM)?"
     email_regex = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]+"
-    money_regex = "(\$|€)[0-9]+([.,][0-9]+)?"
+    money_regex = "(\\$|€)[0-9]+([.,][0-9]+)?"
     print "type", "value", "line", "col", "length"
 }
 
